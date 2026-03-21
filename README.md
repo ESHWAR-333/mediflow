@@ -1,6 +1,3 @@
-
-# Project Title
-
 # MediFlow — Real-Time Healthcare Appointment & Triage Platform
 
 MediFlow is a distributed event-driven microservices system that allows patients to book doctor appointments, prioritizes cases using a triage engine, and processes notifications asynchronously.
