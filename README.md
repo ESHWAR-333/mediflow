@@ -74,7 +74,6 @@ Each service is fully decoupled, independently deployable, and communicates only
 | **Monitoring** | Prometheus + Grafana | Metrics & dashboards |
 | **Kafka UI** | Provectus Kafka UI | Topic & consumer monitoring |
 | **Containerization** | Docker + Docker Compose | Full-stack orchestration |
-| **CI/CD** | GitHub Actions | Automated pipeline |
 | **Language** | Python 3.11 | All services |
 
 ---
