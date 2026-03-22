@@ -23,7 +23,6 @@
 - [API Reference](#-api-reference)
 - [Analytics](#-analytics)
 - [Monitoring](#-monitoring)
-- [What I Learned](#-what-i-learned)
 - [Future Improvements](#-future-improvements)
 
 ---
@@ -453,19 +452,6 @@ ORDER BY time DESC;
 
 ---
 
-## 🧠 What I Learned
-
-- **Event-driven design** — Decoupling services via Kafka topics eliminates synchronous dependencies and makes each service independently deployable
-- **Distributed locking** — Redis `SET NX EX` atomically solves the double-booking race condition that would occur with naive database writes
-- **Docker networking** — Inside containers, `localhost` refers to the container itself; service discovery uses container names (`kafka:9092`, not `localhost:29092`)
-- **Kafka readiness** — `depends_on` only waits for container start, not readiness; proper health checks are essential for reliable startup ordering
-- **Object storage** — MinIO provides an S3-compatible API for storing and retrieving generated documents without cloud dependency
-- **PDF generation** — ReportLab enables fully programmatic A4 document generation with tables, styling, and dynamic content
-- **Time-series data** — TimescaleDB hypertables automatically chunk data by time, making range queries orders of magnitude faster than vanilla PostgreSQL
-- **Observability** — Without Prometheus + Grafana, distributed systems are a black box; metrics make problems visible before they become incidents
-
----
-
 ## 🚧 Future Improvements
 
 - [ ] **ML Triage Model** — Replace keyword scoring with a trained scikit-learn or HuggingFace classifier
@@ -477,11 +463,6 @@ ORDER BY time DESC;
 - [ ] **End-to-End Tests** — Automated integration tests that fire a booking and assert the full pipeline ran
 - [ ] **Grafana Dashboards** — Pre-built dashboard JSON for TimescaleDB analytics queries
 
----
-
-## 💼 Resume Description
-
-> Built a production-grade healthcare microservices platform using **Kafka-based event-driven architecture** with 6 decoupled Python services. Implemented **distributed locking with Redis** to prevent double-booking race conditions, developed a real-time **triage scoring engine**, generated **PDF booking confirmations** stored in **MinIO object storage**, built a **time-series analytics pipeline** with **TimescaleDB**, containerized all services with **Docker Compose** using health checks for proper startup ordering, and integrated **Prometheus & Grafana** for full observability.
 
 ---
 
