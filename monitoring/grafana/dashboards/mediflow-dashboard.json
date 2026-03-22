@@ -1,0 +1,64 @@
+{
+    "annotations": { "list": [] },
+    "editable": true,
+    "panels": [
+      {
+        "type": "timeseries",
+        "title": "Request Rate (RPS)",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total[1m])",
+            "legendFormat": "RPS"
+          }
+        ],
+        "gridPos": { "x": 0, "y": 0, "w": 12, "h": 8 }
+      },
+      {
+        "type": "timeseries",
+        "title": "Total Requests",
+        "targets": [
+          {
+            "expr": "http_requests_total",
+            "legendFormat": "Total"
+          }
+        ],
+        "gridPos": { "x": 12, "y": 0, "w": 12, "h": 8 }
+      },
+      {
+        "type": "timeseries",
+        "title": "Average Latency",
+        "targets": [
+          {
+            "expr": "rate(http_request_duration_seconds_sum[1m]) / rate(http_request_duration_seconds_count[1m])",
+            "legendFormat": "Latency"
+          }
+        ],
+        "gridPos": { "x": 0, "y": 8, "w": 12, "h": 8 }
+      },
+      {
+        "type": "timeseries",
+        "title": "Error Rate (5xx)",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total{status=~\"5..\"}[1m])",
+            "legendFormat": "Errors"
+          }
+        ],
+        "gridPos": { "x": 12, "y": 8, "w": 12, "h": 8 }
+      },
+      {
+        "type": "timeseries",
+        "title": "Active Requests",
+        "targets": [
+          {
+            "expr": "http_requests_in_progress",
+            "legendFormat": "Active"
+          }
+        ],
+        "gridPos": { "x": 0, "y": 16, "w": 24, "h": 8 }
+      }
+    ],
+    "title": "MediFlow Dashboard",
+    "schemaVersion": 38,
+    "version": 1
+  }
