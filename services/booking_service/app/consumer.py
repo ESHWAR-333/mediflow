@@ -4,6 +4,7 @@ from app.config import KAFKA_BOOTSTRAP_SERVERS, KAFKA_TOPIC
 from app.db import SessionLocal
 from app.models import Booking
 
+
 consumer = KafkaConsumer(
     KAFKA_TOPIC,
     bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS,

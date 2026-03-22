@@ -91,6 +91,12 @@ services:
       - "9001:9001"
     volumes:
       - minio-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      
 
   api-gateway:
     build:
@@ -103,6 +109,7 @@ services:
         condition: service_healthy
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      PYTHONUNBUFFERED: "1"
 
   booking-service:
     build:
@@ -116,6 +123,7 @@ services:
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       DATABASE_URL: postgresql://mediflow:mediflow123456@postgres:5432/mediflow
+      PYTHONUNBUFFERED: "1"
 
   triage-engine:
     build:
@@ -126,6 +134,7 @@ services:
         condition: service_healthy
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      PYTHONUNBUFFERED: "1"
 
   slot-manager:
     build:
@@ -140,6 +149,7 @@ services:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       REDIS_HOST: redis
       REDIS_PORT: 6379
+      PYTHONUNBUFFERED: "1"
 
   notification-service:
     build:
@@ -148,8 +158,17 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
+      minio:
+        condition: service_healthy
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio123456
+      MINIO_BUCKET: booking-confirmations
+      MINIO_SECURE: "false"
+      PYTHONUNBUFFERED: "1"
+    
 
 
   prometheus:
@@ -158,6 +177,7 @@ services:
       - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
+    
 
   grafana:
     image: grafana/grafana
