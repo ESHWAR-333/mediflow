@@ -190,6 +190,14 @@ mediflow/
 ├── monitoring/
 │   ├── prometheus.yml
 │   └── grafana/
+│       ├── dashboards/ 
+│       │   └── mediflow-dashboard.json
+│       └── provisioning/
+│           ├── dashboards/
+│           │   └── dashboard.yml
+│           └── datasources/
+│               └── datasource.yml
+│       
 │
 ├── docs/
 │   ├── architecture.svg
@@ -202,7 +210,13 @@ mediflow/
 │   ├── timescaledb.png
 │   ├── Prometheus.png
 │   └── grafana.png
-│
+│ 
+│ 
+├── scripts/
+│   └── test_kafka.py
+│   
+│ 
+│ 
 ├── docker-compose.yml
 └── README.md
 ```
