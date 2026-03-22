@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
 
   zookeeper:
@@ -188,6 +186,41 @@ services:
       - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
       - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards   # 👈 FIX
 
+
+
+  timescaledb:
+    image: timescale/timescaledb:latest-pg15
+    container_name: mediflow-timescaledb
+    environment:
+      POSTGRES_USER: mediflow
+      POSTGRES_PASSWORD: mediflow123456
+      POSTGRES_DB: mediflow_analytics
+    ports:
+      - "5433:5432"
+    volumes:
+      - timescaledb-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mediflow -d mediflow_analytics"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+
+  analytics-service:
+    build:
+      context: .
+      dockerfile: services/analytics_service/Dockerfile
+    depends_on:
+      kafka:
+        condition: service_healthy
+      timescaledb:
+        condition: service_healthy
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      DATABASE_URL: postgresql://mediflow:mediflow123456@timescaledb:5432/mediflow_analytics
+      PYTHONUNBUFFERED: "1"
+
 volumes:
+  timescaledb-data:
   postgres-data:
   minio-data:
