@@ -207,7 +207,7 @@ mediflow/
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/mediflow.git
+git clone https://github.com/ESHWAR-333/mediflow.git
 cd mediflow
 
 # Start all services
